@@ -21,10 +21,12 @@ class NotesController < ApplicationController
 
   # POST /notes or /notes.json
   def create
+
     @note = Note.new(note_params)
 
     respond_to do |format|
       if @note.save
+        format.turbo_stream
         format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
         format.json { render :show, status: :created, location: @note }
       else
